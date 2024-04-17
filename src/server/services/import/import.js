@@ -92,7 +92,9 @@ const importOtherSlug = async (data, { slug, user, idField }) => {
 const updateOrCreate = async (user, slug, data, idField = 'id') => {
   const relationAttributes = getModelAttributes(slug, { filterType: ['component', 'dynamiczone', 'media', 'relation'] });
   for (let attribute of relationAttributes) {
-    data[attribute.name] = await updateOrCreateRelation(user, attribute, data[attribute.name]);
+    if (data[attribute.name]){
+      data[attribute.name] = await updateOrCreateRelation(user, attribute, data[attribute.name]);
+    }
   }
 
   let entry;
