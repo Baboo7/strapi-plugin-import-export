@@ -7,5 +7,6 @@ module.exports = ({ env }) => ({
       filename: path.join(__dirname, '..', 'data/data.sqlite'),
     },
     useNullAsDefault: true,
+    debug: false,
   },
 });

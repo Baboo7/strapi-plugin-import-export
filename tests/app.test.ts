@@ -1,6 +1,6 @@
 const { readdirSync } = require('fs');
 
-const { setupStrapi, cleanupStrapi, cleanupDatabase, setupDatabase } = require('./helpers/strapi');
+const { setupStrapi, cleanupStrapi, cleanupDatabase, cleanupUploads, setupDatabase } = require('./helpers/strapi');
 
 beforeAll(async () => {
   await setupStrapi();
@@ -13,6 +13,7 @@ afterAll(async () => {
 
 beforeEach(async () => {
   await cleanupDatabase();
+  await cleanupUploads();
 });
 
 it('strapi should be defined', () => {

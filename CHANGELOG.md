@@ -2,6 +2,65 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.23.1](https://github.com/Baboo7/strapi-plugin-import-export-entries/compare/v1.23.0...v1.23.1) (2023-12-27)
+
+## [1.23.0](https://github.com/Baboo7/strapi-plugin-import-export-entries/compare/v1.22.2...v1.23.0) (2023-12-23)
+
+
+### ⚡️ Features
+
+* 🎸 Added uk locale ([0049591](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/00495915d50281901b87f1ebe07c8e51b4b6a24c))
+
+### [1.22.2](https://github.com/Baboo7/strapi-plugin-import-export-entries/compare/v1.22.1...v1.22.2) (2023-12-09)
+
+
+### ⚡️ Features
+
+* **import-v2:** Import media of components ([131294b](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/131294b875d4788055e92f9c95af757bfa7c0106))
+
+
+### 🧪 Tests
+
+* **jest:** Update globals ([de2383e](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/de2383ec5bd3340485fa68bfe9372424ec99bab4))
+
+
+### 🧹 Chores
+
+* **settings:** Match latest vscode version ([cc8a328](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/cc8a3283bc8597bb84c90fbffb13b8a967637c97))
+
+### [1.22.1](https://github.com/Baboo7/strapi-plugin-import-export-entries/compare/v1.22.0...v1.22.1) (2023-11-30)
+
+
+### 🧹 Chores
+
+* Update node version ([8b24d01](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/8b24d01507c570a94eefffc1c04c0efc8bbe6cca))
+
+
+### 🐞 Bug Fixes
+
+* **import-v2:** Import media files once ([f0a4518](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/f0a4518421a11968f0c6903d4f4088c680ba1e9b))
+
+## [1.22.0](https://github.com/Baboo7/strapi-plugin-import-export-entries/compare/v1.21.1...v1.22.0) (2023-11-26)
+
+
+### 🐞 Bug Fixes
+
+* **types:** Fix typing ([5c86e4f](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/5c86e4f5bc42a68c1e0d852c4092930729c4db84))
+
+
+### 🧪 Tests
+
+* **config:** Define global strapi for ts ([de75c22](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/de75c22fe876eaae97e24b2d1063c3d2ccbc5b9f))
+* **import:** Set restaurant name unique ([99f1221](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/99f1221f7c6ba53647daf909353f6641c1be08c6))
+* **import:** Setup import file ([b3e14bb](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/b3e14bb9bfa4036570c0b0fd9536a570a87a957e))
+* **import:** Test update data ([8b47c9f](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/8b47c9fbe81c783506b9ba30e48a329b30089a37))
+
+
+### 🧹 Chores
+
+* Setup ts jest ([fdd406b](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/fdd406b14bc46da9e0c71a1aadc94db1c38adfcd))
+* Support node v20.x.x ([1c8f591](https://github.com/Baboo7/strapi-plugin-import-export-entries/commits/1c8f5917cfac12129af1be1934736694f61d7708))
+
 ### [1.19.1](https://github.com/Baboo7/strapi-plugin-import-export-entries/compare/v1.19.0...v1.19.1) (2023-04-25)
 
 ### 🧹 Chores

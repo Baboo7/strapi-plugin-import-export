@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "restaurant_owners",
+  "info": {
+    "singularName": "restaurant-owner",
+    "pluralName": "restaurant-owners",
+    "displayName": "Restaurant Owner"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "import-export-entries": {
+      "idField": "name"
+    }
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

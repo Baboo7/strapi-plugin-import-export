@@ -1,7 +1,4 @@
-import { Box } from '@strapi/design-system/Box';
-import { Divider } from '@strapi/design-system/Divider';
-import { Flex } from '@strapi/design-system/Flex';
-import { Typography } from '@strapi/design-system/Typography';
+import { Box, Divider, Flex, Typography } from '@strapi/design-system';
 import { CheckPermissions } from '@strapi/helper-plugin';
 import React from 'react';
 import { useIntl } from 'react-intl';

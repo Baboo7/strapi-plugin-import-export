@@ -8,6 +8,7 @@ import os from 'os';
 import path from 'path';
 import fetch from 'node-fetch';
 import { isObjectSafe } from '../../../../libs/objects';
+const { nameToSlug } = require('@strapi/utils');
 
 export { findOrImportFile };
 
@@ -27,14 +28,22 @@ type FileEntryMedia = {
 
 async function findOrImportFile(fileEntry: FileEntry, user: User, { allowedFileTypes }: { allowedFileTypes: AllowedMediaTypes[] }): Promise<Entry | null> {
   let obj: Partial<FileEntryMedia> = {};
-  if (typeof fileEntry === 'number') {
-    obj.id = fileEntry;
-  } else if (typeof fileEntry === 'string') {
+  if (typeof fileEntry === 'string') {
     obj.url = fileEntry;
   } else if (isObjectSafe(fileEntry)) {
     obj = fileEntry;
   } else {
     throw new Error(`Invalid data format '${typeof fileEntry}' to import media. Only 'string', 'number', 'object' are accepted.`);
+  }
+
+  if (obj.url) {
+    const fileData = getFileDataFromRawUrl(obj.url);
+    if (!obj.name) {
+      obj.name = fileData.name;
+    }
+    if (!obj.hash) {
+      obj.hash = fileData.hash;
+    }
   }
 
   let file: MediaEntry | null = await findFile(obj, user, allowedFileTypes);
@@ -46,18 +55,18 @@ async function findOrImportFile(fileEntry: FileEntry, user: User, { allowedFileT
   return file;
 }
 
-const findFile = async (
-  { id, hash, name, url, alternativeText, caption }: Partial<FileEntryMedia>,
-  user: User,
-  allowedFileTypes: AllowedMediaTypes[],
-): Promise<MediaEntry | null> => {
+const findFile = async ({ hash, name, url, alternativeText, caption }: Partial<FileEntryMedia>, user: User, allowedFileTypes: AllowedMediaTypes[]): Promise<MediaEntry | null> => {
   let file = null;
 
-  if (!file && id) {
-    file = await strapi.entityService.findOne('plugin::upload.file', id);
-  }
   if (!file && hash) {
-    [file] = await strapi.entityService.findMany('plugin::upload.file', { filters: { hash }, limit: 1 });
+    [file] = await strapi.entityService.findMany('plugin::upload.file', {
+      filters: {
+        hash: {
+          $startsWith: hash,
+        },
+      },
+      limit: 1,
+    });
   }
   if (!file && name) {
     [file] = await strapi.entityService.findMany('plugin::upload.file', { filters: { name }, limit: 1 });
@@ -68,7 +77,7 @@ const findFile = async (
       file = await findFile({ hash: checkResult.fileData.hash, name: checkResult.fileData.fileName }, user, allowedFileTypes);
 
       if (!file) {
-        file = await importFile({ id: id!, url: checkResult.fileData.rawUrl, name: name!, alternativeText: alternativeText!, caption: caption! }, user);
+        file = await importFile({ url: checkResult.fileData.rawUrl, name: name!, alternativeText: alternativeText!, caption: caption! }, user);
       }
     }
   }
@@ -76,10 +85,7 @@ const findFile = async (
   return file;
 };
 
-const importFile = async (
-  { id, url, name, alternativeText, caption }: { id: string; url: string; name: string; alternativeText: string; caption: string },
-  user: User,
-): Promise<MediaEntry> => {
+const importFile = async ({ url, name, alternativeText, caption }: { url: string; name: string; alternativeText: string; caption: string }, user: User): Promise<MediaEntry> => {
   let file;
   try {
     file = await fetchFile(url);
@@ -105,13 +111,6 @@ const importFile = async (
         },
         { user },
       );
-
-    if (id) {
-      uploadedFile = await strapi.db.query('plugin::upload.file').update({
-        where: { id: uploadedFile.id },
-        data: { id },
-      });
-    }
 
     return uploadedFile;
   } catch (err) {
@@ -241,7 +240,7 @@ const getFileDataFromRawUrl = (
 
   const name = trim(parsedUrl.pathname, '/').replace(/\//g, '-');
   const extension = parsedUrl.pathname.split('.').pop()?.toLowerCase() || '';
-  const hash = last(parsedUrl.pathname.split('/'))?.slice(0, -(extension!.length + 1)) || '';
+  const hash = nameToSlug(name.slice(0, -(extension!.length + 1)) || '', { separator: '_', lowercase: false });
 
   return {
     hash,

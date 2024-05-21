@@ -2,11 +2,12 @@ import cloneDeep from 'lodash/cloneDeep';
 import isEmpty from 'lodash/isEmpty';
 import omit from 'lodash/omit';
 import pick from 'lodash/pick';
+import castArray from 'lodash/castArray';
 import { extract, toArray } from '../../../libs/arrays';
 import { ObjectBuilder } from '../../../libs/objects';
 import { getModel, getModelAttributes, isComponentAttribute, isDynamicZoneAttribute, isMediaAttribute, isRelationAttribute } from '../../utils/models';
 import { Entry, EntryId, Schema, SchemaUID, User } from '../../types';
-import { toPairs } from 'lodash';
+import { head, toPairs } from 'lodash';
 import { FileEntry, FileEntryDynamicZone, FileId } from './types';
 import { findOrImportFile } from './utils/file';
 
@@ -234,13 +235,14 @@ const updateOrCreate = async (
 
   if (importStage == 'simpleAttributes') {
     fileEntry = removeComponents(schema, fileEntry);
-    const attributeNames = getModelAttributes(slug, { filterOutType: ['media', 'relation'] })
+    fileEntry = linkMediaAttributes(schema, fileEntry, { fileIdToDbId });
+    const attributeNames = getModelAttributes(slug, { filterOutType: ['relation'] })
       .map(({ name }) => name)
       .concat('id', 'localizations', 'locale');
     fileEntry = pick(fileEntry, attributeNames);
   } else if (importStage === 'relationAttributes') {
     fileEntry = setComponents(schema, fileEntry, { fileIdToDbId, componentsDataStore });
-    const attributeNames = getModelAttributes(slug, { filterType: ['component', 'dynamiczone', 'media', 'relation'] })
+    const attributeNames = getModelAttributes(slug, { filterType: ['component', 'dynamiczone', 'relation'] })
       .map(({ name }) => name)
       .concat('id', 'localizations', 'locale');
     fileEntry = pick(fileEntry, attributeNames);
@@ -258,6 +260,29 @@ const updateOrCreate = async (
 
   return dbEntry;
 };
+
+function linkMediaAttributes(schema: Schema, fileEntry: FileEntry, { fileIdToDbId }: { fileIdToDbId: IdMapper }) {
+  for (const [attributeName, attribute] of Object.entries(schema.attributes)) {
+    let attributeValue = fileEntry[attributeName] as string | number | string[] | number[] | null;
+    if (attributeValue == null) {
+      continue;
+    }
+
+    if (isMediaAttribute(attribute)) {
+      attributeValue = castArray(attributeValue)
+        .map((id) => fileIdToDbId.getMapping('plugin::upload.file', id as number | string))
+        .filter(Boolean) as string[] | number[];
+
+      if (!attribute.multiple) {
+        attributeValue = attributeValue[0];
+      }
+
+      fileEntry[attributeName] = attributeValue;
+    }
+  }
+
+  return fileEntry;
+}
 
 function removeComponents(schema: Schema, fileEntry: FileEntry) {
   const store: Record<string, any> = {};
@@ -351,6 +376,12 @@ function getComponentData(
         store[attributeName] = (attributeValue as (number | string)[]).map((id) => fileIdToDbId.getMapping(attribute.target, id));
       } else {
         store[attributeName] = fileIdToDbId.getMapping(attribute.target, attributeValue as number | string);
+      }
+    } else if (isMediaAttribute(attribute)) {
+      if (attribute.multiple) {
+        store[attributeName] = castArray(attributeValue as number | string | (number | string)[]).map((id) => fileIdToDbId.getMapping('plugin::upload.file', id));
+      } else {
+        store[attributeName] = fileIdToDbId.getMapping('plugin::upload.file', `${head(castArray(attributeValue as number | string))}`);
       }
     }
   }

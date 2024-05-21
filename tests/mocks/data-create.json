@@ -1,0 +1,94 @@
+{
+  "version": 2,
+  "data": {
+    "api::restaurant.restaurant": {
+      "1": {
+        "id": 1,
+        "name": "Dubillot Brasserie",
+        "description": "Awesome restaurant",
+        "rating": 5,
+        "logo": 1,
+        "owned_by": 1,
+        "utensils": [1, 2],
+        "locale": "en",
+        "localizations": [3]
+      },
+      "2": {
+        "id": 2,
+        "name": "Martin Brasserie",
+        "description": "Checkout the chicken",
+        "rating": 4.5,
+        "logo": 2,
+        "owned_by": 2,
+        "utensils": [1],
+        "locale": "en",
+        "localizations": []
+      },
+      "3": {
+        "id": 3,
+        "name": "Brasserie Dubillot",
+        "description": "Incroyable restaurant",
+        "rating": 5,
+        "logo": 1,
+        "owned_by": 1,
+        "utensils": [1, 2],
+        "locale": "fr",
+        "localizations": [1]
+      }
+    },
+    "api::restaurant-owner.restaurant-owner": {
+      "1": {
+        "id": 1,
+        "name": "Charles"
+      },
+      "2": {
+        "id": 2,
+        "name": "Victor"
+      }
+    },
+    "api::utensil-maker.utensil-maker": {
+      "1": {
+        "id": 1,
+        "name": "Moulinex"
+      },
+      "2": {
+        "id": 2,
+        "name": "SEB"
+      }
+    },
+    "plugin::upload.file": {
+      "1": {
+        "id": 1,
+        "url": "https://storage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
+      },
+      "2": {
+        "id": 2,
+        "url": "https://storage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg"
+      },
+      "3": {
+        "id": 3,
+        "url": "https://storage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg"
+      },
+      "4": {
+        "id": 4,
+        "url": "https://storage.googleapis.com/gtv-videos-bucket/sample/images/TearsOfSteel.jpg"
+      }
+    },
+    "shared.utensil": {
+      "1": {
+        "id": 1,
+        "name": "Fork",
+        "description": "Really useful",
+        "picture": 3,
+        "made_by": 1
+      },
+      "2": {
+        "id": 2,
+        "name": "Knife",
+        "description": "Be careful kiddo",
+        "picture": 4,
+        "made_by": 2
+      }
+    }
+  }
+}

@@ -1,10 +1,13 @@
 const Strapi = require('@strapi/strapi');
 const fs = require('fs');
+const path = require('path');
+const { PATH_TO_UPLOADS_FOLDER } = require('../constants');
 
 const ENABLE_DELETE_DB_BEFORE_SETUP = true;
 const ENABLE_DELETE_DB_AFTER_ALL = false;
 
 const ENABLE_CLEANUP_DB = true;
+const ENABLE_CLEANUP_UPLOADS = true;
 
 const PATH_TO_DB_FILE = `${__dirname}/test-app/data/data.sqlite`;
 
@@ -89,6 +92,14 @@ async function cleanupDatabase(options = {}) {
   }
 }
 
+async function cleanupUploads() {
+  if (ENABLE_CLEANUP_UPLOADS) {
+    fs.readdirSync(PATH_TO_UPLOADS_FOLDER).forEach((fileName) => {
+      fs.unlinkSync(path.join(PATH_TO_UPLOADS_FOLDER, fileName));
+    });
+  }
+}
+
 const shouldCleanCollection = ({ broadCleaning = false } = {}) => {
   return ([collectionName]) => {
     if (broadCleaning) {
@@ -106,4 +117,5 @@ module.exports = {
   cleanupDatabase,
   setupStrapi,
   cleanupStrapi,
+  cleanupUploads,
 };

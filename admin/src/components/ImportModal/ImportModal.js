@@ -1,13 +1,6 @@
 import './style.css';
 
-import { Button } from '@strapi/design-system/Button';
-import { EmptyStateLayout } from '@strapi/design-system/EmptyStateLayout';
-import { Flex } from '@strapi/design-system/Flex';
-import { Icon } from '@strapi/design-system/Icon';
-import { Loader } from '@strapi/design-system/Loader';
-import { ModalBody, ModalFooter, ModalHeader, ModalLayout } from '@strapi/design-system/ModalLayout';
-import { Portal } from '@strapi/design-system/Portal';
-import { Typography } from '@strapi/design-system/Typography';
+import { Button, EmptyStateLayout, Flex, Icon, Loader, ModalBody, ModalFooter, ModalHeader, ModalLayout, Portal, Typography } from '@strapi/design-system';
 import CheckCircle from '@strapi/icons/CheckCircle';
 import IconCode from '@strapi/icons/Code';
 import IconFile from '@strapi/icons/File';

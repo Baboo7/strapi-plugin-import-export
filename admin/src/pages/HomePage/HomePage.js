@@ -1,10 +1,4 @@
-import { Box } from '@strapi/design-system/Box';
-import { Checkbox } from '@strapi/design-system/Checkbox';
-import { Flex } from '@strapi/design-system/Flex';
-import { ContentLayout } from '@strapi/design-system/Layout';
-import { Link } from '@strapi/design-system/Link';
-import { Option, Select } from '@strapi/design-system/Select';
-import { Typography } from '@strapi/design-system/Typography';
+import { Box, Checkbox, ContentLayout, Flex, Link, Option, Select, Typography } from '@strapi/design-system';
 import { CheckPagePermissions } from '@strapi/helper-plugin';
 import range from 'lodash/range';
 import React, { memo, useState } from 'react';

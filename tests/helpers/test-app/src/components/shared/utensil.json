@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_shared_utensils",
+  "info": {
+    "displayName": "utensil",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "picture": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "made_by": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::utensil-maker.utensil-maker"
+    }
+  }
+}

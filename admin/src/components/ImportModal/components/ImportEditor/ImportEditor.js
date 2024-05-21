@@ -1,7 +1,4 @@
-import { Box } from '@strapi/design-system/Box';
-import { Option, Select } from '@strapi/design-system/Select';
-import { Tab, TabGroup, TabPanel, TabPanels, Tabs } from '@strapi/design-system/Tabs';
-import { Typography } from '@strapi/design-system/Typography';
+import { Box, Option, Select, Tab, TabGroup, TabPanel, TabPanels, Tabs, Typography } from '@strapi/design-system';
 import React, { useEffect, useState } from 'react';
 
 import { api } from '../../../../api';

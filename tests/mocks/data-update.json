@@ -1,0 +1,71 @@
+{
+  "version": 2,
+  "data": {
+    "api::restaurant.restaurant": {
+      "11": {
+        "id": 11,
+        "name": "Dubillot Brasserie",
+        "description": "Awesome restaurant with insane wines",
+        "rating": 4.9,
+        "owned_by": 11,
+        "utensils": [11],
+        "locale": "en",
+        "localizations": [13]
+      },
+      "12": {
+        "id": 12,
+        "name": "Martin Brasserie",
+        "description": "Checkout the chicken and the French fries",
+        "rating": 4.7,
+        "owned_by": 12,
+        "utensils": [11],
+        "locale": "en",
+        "localizations": []
+      },
+      "13": {
+        "id": 13,
+        "name": "Brasserie Dubillot",
+        "description": "Incroyable restaurant avec ses excellents vins",
+        "rating": 4.9,
+        "owned_by": 11,
+        "utensils": [11],
+        "locale": "fr",
+        "localizations": [11]
+      }
+    },
+    "api::restaurant-owner.restaurant-owner": {
+      "11": {
+        "id": 11,
+        "name": "Charles Magne"
+      },
+      "12": {
+        "id": 12,
+        "name": "Victor Ovitch"
+      }
+    },
+    "api::utensil-maker.utensil-maker": {
+      "11": {
+        "id": 11,
+        "name": "Moulinex"
+      },
+      "12": {
+        "id": 12,
+        "name": "SEB"
+      }
+    },
+    "shared.utensil": {
+      "11": {
+        "id": 11,
+        "name": "Fork",
+        "description": "Really efficient in chess",
+        "made_by": 11
+      },
+      "12": {
+        "id": 12,
+        "name": "Knife",
+        "description": "Sharp as it should be",
+        "made_by": 12
+      }
+    }
+  }
+}

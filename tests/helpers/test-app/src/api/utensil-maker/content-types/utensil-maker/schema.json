@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "utensil_makers",
+  "info": {
+    "singularName": "utensil-maker",
+    "pluralName": "utensil-makers",
+    "displayName": "Utensil Maker"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "import-export-entries": {
+      "idField": "name"
+    }
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

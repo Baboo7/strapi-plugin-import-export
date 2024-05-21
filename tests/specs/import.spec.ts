@@ -1,6 +1,8 @@
 const map = require('lodash/map');
 const pick = require('lodash/pick');
 const { getModel } = require('../../server/utils/models');
+const dataCreate = require('../mocks/data-create.json');
+const dataUpdate = require('../mocks/data-update.json');
 
 const { getService, SLUGS, generateData } = require('../utils');
 
@@ -21,7 +23,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany();
+      const entries = await strapi.db.query(SLUG).findMany({});
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
@@ -51,7 +53,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany();
+      const entries = await strapi.db.query(SLUG).findMany({});
 
       const [entry] = entries;
 
@@ -78,7 +80,7 @@ describe('import service', () => {
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
-      entries.forEach((entry, idx) => {
+      entries.forEach((entry: any, idx: any) => {
         const configData = CONFIG[SLUG][idx];
         if (configData.id) {
           expect(entry.id).toBe(configData.id);
@@ -107,7 +109,7 @@ describe('import service', () => {
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
-      entries.forEach((entry, idx) => {
+      entries.forEach((entry: any, idx: any) => {
         const configData = CONFIG[SLUG][idx];
         if (configData.id) {
           expect(entry.id).toBe(configData.id);
@@ -138,7 +140,7 @@ describe('import service', () => {
         .findMany({ populate: ['localizations'] })
         .then((entries) =>
           entries.map((e) => {
-            e.localizations = e.localizations.map((l) => l.id);
+            e.localizations = e.localizations.map((l: any) => l.id);
             return e;
           }),
         );
@@ -190,7 +192,7 @@ describe('import service', () => {
         .findMany({ populate: ['localizations'] })
         .then((entries) =>
           entries.map((e) => {
-            e.localizations = e.localizations.map((l) => l.id);
+            e.localizations = e.localizations.map((l: any) => l.id);
             return e;
           }),
         );
@@ -225,7 +227,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany({ populate: true });
+      const entries = await strapi.db.query(SLUG).findMany({ populate: true } as any);
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
@@ -254,7 +256,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany({ populate: true });
+      const entries = await strapi.db.query(SLUG).findMany({ populate: true } as any);
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
@@ -282,7 +284,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany();
+      const entries = await strapi.db.query(SLUG).findMany({});
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
@@ -306,7 +308,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany();
+      const entries = await strapi.db.query(SLUG).findMany({});
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
@@ -327,7 +329,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany();
+      const entries = await strapi.db.query(SLUG).findMany({});
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
@@ -351,7 +353,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany();
+      const entries = await strapi.db.query(SLUG).findMany({});
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
@@ -372,7 +374,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany();
+      const entries = await strapi.db.query(SLUG).findMany({});
 
       expect(failures.length).toBe(0);
       entries.forEach((entry, idx) => {
@@ -419,7 +421,7 @@ describe('import service', () => {
         .findMany({ populate: ['localizations'] })
         .then((entries) =>
           entries.map((e) => {
-            e.localizations = e.localizations.map((l) => l.id);
+            e.localizations = e.localizations.map((l: any) => l.id);
             return e;
           }),
         );
@@ -452,7 +454,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany({ populate: true });
+      const entries = await strapi.db.query(SLUG).findMany({ populate: true } as any);
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
@@ -478,7 +480,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUG, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUG).findMany({ populate: true });
+      const entries = await strapi.db.query(SLUG).findMany({ populate: true } as any);
 
       expect(failures.length).toBe(0);
       expect(entries.length).toBe(CONFIG[SLUG].length);
@@ -506,7 +508,7 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUGS.RELATION_A, user: {}, idField: 'id' });
 
-      const [entriesA, entriesB] = await Promise.all([strapi.db.query(SLUGS.RELATION_A).findMany(), strapi.db.query(SLUGS.RELATION_B).findMany()]);
+      const [entriesA, entriesB] = await Promise.all([strapi.db.query(SLUGS.RELATION_A).findMany({}), strapi.db.query(SLUGS.RELATION_B).findMany({})]);
 
       expect(failures.length).toBe(0);
 
@@ -534,17 +536,213 @@ describe('import service', () => {
 
       const { failures } = await getService('import').importDataV2(fileContent, { slug: SLUGS.RELATION_A, user: {}, idField: 'id' });
 
-      const entries = await strapi.db.query(SLUGS.RELATION_A).findMany();
+      const entries = await strapi.db.query(SLUGS.RELATION_A).findMany({});
 
       expect(failures.length).toBeGreaterThanOrEqual(1);
       expect(entries.length).toBe(0);
     });
+
+    it('should create entries when import file', async () => {
+      await getService('import').importDataV2(dataCreate, { slug: 'custom:db', user: {} });
+
+      let entries = await strapi.db.query('api::restaurant.restaurant').findMany({
+        populate: {
+          logo: true,
+          owned_by: true,
+          utensils: {
+            populate: true,
+          },
+          localizations: true,
+        },
+      } as any);
+
+      expect(entries.length).toBe(3);
+
+      expect(entries[0].name).toBe('Dubillot Brasserie');
+      expect(entries[0].locale).toBe('en');
+      expect(entries[0].description).toBe('Awesome restaurant');
+      expect(entries[0].owned_by.name).toBe('Charles');
+      expect(entries[0].utensils.length).toBe(2);
+      expect(entries[0].utensils[0].name).toBe('Fork');
+      expect(entries[0].utensils[0].made_by.name).toBe('Moulinex');
+      expect(entries[0].utensils[1].name).toBe('Knife');
+      expect(entries[0].utensils[1].made_by.name).toBe('SEB');
+      expect(entries[0].localizations.length).toBe(1);
+      expect(entries[0].localizations[0].name).toBe('Brasserie Dubillot');
+      expect(entries[0].localizations[0].locale).toBe('fr');
+
+      expect(entries[1].name).toBe('Martin Brasserie');
+      expect(entries[1].locale).toBe('en');
+      expect(entries[1].description).toBe('Checkout the chicken');
+      expect(entries[1].owned_by.name).toBe('Victor');
+      expect(entries[1].utensils.length).toBe(1);
+      expect(entries[1].utensils[0].name).toBe('Fork');
+
+      expect(entries[2].name).toBe('Brasserie Dubillot');
+      expect(entries[2].locale).toBe('fr');
+      expect(entries[2].description).toBe('Incroyable restaurant');
+      expect(entries[2].owned_by.name).toBe('Charles');
+      expect(entries[2].utensils.length).toBe(2);
+      expect(entries[2].utensils[0].name).toBe('Fork');
+      expect(entries[2].utensils[0].made_by.name).toBe('Moulinex');
+      expect(entries[2].utensils[1].name).toBe('Knife');
+      expect(entries[2].utensils[1].made_by.name).toBe('SEB');
+      expect(entries[2].localizations.length).toBe(1);
+      expect(entries[2].localizations[0].name).toBe('Dubillot Brasserie');
+      expect(entries[2].localizations[0].locale).toBe('en');
+    });
+
+    it('should download media when import file', async () => {
+      await getService('import').importDataV2(dataCreate, { slug: 'custom:db', user: {} });
+
+      let entries = await strapi.db.query('api::restaurant.restaurant').findMany({
+        populate: {
+          logo: true,
+        },
+      } as any);
+
+      expect(entries[0].logo.name).toBe('gtv-videos-bucket-sample-images-BigBuckBunny.jpg');
+      expect(entries[1].logo.name).toBe('gtv-videos-bucket-sample-images-ForBiggerBlazes.jpg');
+      expect(entries[0].logo.name).toBe('gtv-videos-bucket-sample-images-BigBuckBunny.jpg');
+    });
+
+    it('should download media of component when import file', async () => {
+      await getService('import').importDataV2(dataCreate, { slug: 'custom:db', user: {} });
+
+      let entries = await strapi.db.query('api::restaurant.restaurant').findMany({
+        populate: {
+          utensils: {
+            populate: true,
+          },
+        },
+      } as any);
+
+      expect(entries[0].utensils[0].picture.name).toBe('gtv-videos-bucket-sample-images-ForBiggerJoyrides.jpg');
+      expect(entries[0].utensils[1].picture.name).toBe('gtv-videos-bucket-sample-images-TearsOfSteel.jpg');
+      expect(entries[2].utensils[0].picture.name).toBe('gtv-videos-bucket-sample-images-ForBiggerJoyrides.jpg');
+      expect(entries[2].utensils[0].picture.name).toBe('gtv-videos-bucket-sample-images-ForBiggerJoyrides.jpg');
+      expect(entries[2].utensils[1].picture.name).toBe('gtv-videos-bucket-sample-images-TearsOfSteel.jpg');
+    });
+
+    it('should be idempotent when import same file multiple times', async () => {
+      // 1st import.
+      await getService('import').importDataV2(dataCreate, { slug: 'custom:db', user: {} });
+      // 2nd import.
+      await getService('import').importDataV2(dataCreate, { slug: 'custom:db', user: {} });
+
+      const entries = await strapi.db.query('api::restaurant.restaurant').findMany({
+        populate: {
+          logo: true,
+          owned_by: true,
+          utensils: {
+            populate: true,
+          },
+          localizations: true,
+        },
+      } as any);
+
+      expect(entries.length).toBe(3);
+
+      expect(entries[0].name).toBe('Dubillot Brasserie');
+      expect(entries[0].locale).toBe('en');
+      expect(entries[0].description).toBe('Awesome restaurant');
+      expect(entries[0].owned_by.name).toBe('Charles');
+      expect(entries[0].utensils.length).toBe(2);
+      expect(entries[0].utensils[0].name).toBe('Fork');
+      expect(entries[0].utensils[0].made_by.name).toBe('Moulinex');
+      expect(entries[0].utensils[1].name).toBe('Knife');
+      expect(entries[0].utensils[1].made_by.name).toBe('SEB');
+      expect(entries[0].localizations.length).toBe(1);
+      expect(entries[0].localizations[0].name).toBe('Brasserie Dubillot');
+      expect(entries[0].localizations[0].locale).toBe('fr');
+
+      expect(entries[1].name).toBe('Martin Brasserie');
+      expect(entries[1].locale).toBe('en');
+      expect(entries[1].description).toBe('Checkout the chicken');
+      expect(entries[1].owned_by.name).toBe('Victor');
+      expect(entries[1].utensils.length).toBe(1);
+      expect(entries[1].utensils[0].name).toBe('Fork');
+
+      expect(entries[2].name).toBe('Brasserie Dubillot');
+      expect(entries[2].locale).toBe('fr');
+      expect(entries[2].description).toBe('Incroyable restaurant');
+      expect(entries[2].owned_by.name).toBe('Charles');
+      expect(entries[2].utensils.length).toBe(2);
+      expect(entries[2].utensils[0].name).toBe('Fork');
+      expect(entries[2].utensils[0].made_by.name).toBe('Moulinex');
+      expect(entries[2].utensils[1].name).toBe('Knife');
+      expect(entries[2].utensils[1].made_by.name).toBe('SEB');
+      expect(entries[2].localizations.length).toBe(1);
+      expect(entries[2].localizations[0].name).toBe('Dubillot Brasserie');
+      expect(entries[2].localizations[0].locale).toBe('en');
+    });
+
+    it('should download media only once when import same file multiple times', async () => {
+      // 1st import.
+      await getService('import').importDataV2(dataCreate, { slug: 'custom:db', user: {} });
+      // 2nd import.
+      await getService('import').importDataV2(dataCreate, { slug: 'custom:db', user: {} });
+
+      const fileEntries = await strapi.db.query('plugin::upload.file').findMany({});
+      expect(fileEntries.length).toBe(4);
+    });
+
+    it('should update entries when import file', async () => {
+      // First, create entries.
+      await getService('import').importDataV2(dataCreate, { slug: 'custom:db', user: {} });
+      // Then, update entries.
+      await getService('import').importDataV2(dataUpdate, { slug: 'custom:db', user: {} });
+
+      const entries = await strapi.db.query('api::restaurant.restaurant').findMany({
+        populate: {
+          owned_by: true,
+          utensils: {
+            populate: true,
+          },
+          localizations: true,
+        },
+      } as any);
+
+      expect(entries.length).toBe(3);
+
+      expect(entries[0].name).toBe('Dubillot Brasserie');
+      expect(entries[0].locale).toBe('en');
+      expect(entries[0].description).toBe('Awesome restaurant with insane wines');
+      expect(entries[0].owned_by.name).toBe('Charles Magne');
+      expect(entries[0].utensils.length).toBe(1);
+      expect(entries[0].utensils[0].name).toBe('Fork');
+      expect(entries[0].utensils[0].description).toBe('Really efficient in chess');
+      expect(entries[0].utensils[0].made_by.name).toBe('Moulinex');
+      expect(entries[0].localizations.length).toBe(1);
+      expect(entries[0].localizations[0].name).toBe('Brasserie Dubillot');
+      expect(entries[0].localizations[0].locale).toBe('fr');
+
+      expect(entries[1].name).toBe('Martin Brasserie');
+      expect(entries[1].locale).toBe('en');
+      expect(entries[1].description).toBe('Checkout the chicken and the French fries');
+      expect(entries[1].owned_by.name).toBe('Victor Ovitch');
+      expect(entries[1].utensils.length).toBe(1);
+      expect(entries[1].utensils[0].name).toBe('Fork');
+      expect(entries[1].utensils[0].description).toBe('Really efficient in chess');
+
+      expect(entries[2].name).toBe('Brasserie Dubillot');
+      expect(entries[2].locale).toBe('fr');
+      expect(entries[2].description).toBe('Incroyable restaurant avec ses excellents vins');
+      expect(entries[2].owned_by.name).toBe('Charles Magne');
+      expect(entries[2].utensils.length).toBe(1);
+      expect(entries[2].utensils[0].name).toBe('Fork');
+      expect(entries[2].utensils[0].description).toBe('Really efficient in chess');
+      expect(entries[2].utensils[0].made_by.name).toBe('Moulinex');
+      expect(entries[2].localizations.length).toBe(1);
+      expect(entries[2].localizations[0].name).toBe('Dubillot Brasserie');
+      expect(entries[2].localizations[0].locale).toBe('en');
+    });
   });
 });
 
-const buildJsonV2FileContent = (config) => {
+const buildJsonV2FileContent = (config: any) => {
   return {
     version: 2,
-    data: Object.fromEntries(map(config, (data, slug) => [slug, Object.fromEntries(data.map((datum) => [datum.id, datum]))])),
+    data: Object.fromEntries(map(config, (data: any, slug: any) => [slug, Object.fromEntries(data.map((datum: any) => [datum.id, datum]))])),
   };
 };

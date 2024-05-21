@@ -1,14 +1,6 @@
 import './style.css';
 
-import { Button } from '@strapi/design-system/Button';
-import { Checkbox } from '@strapi/design-system/Checkbox';
-import { Flex } from '@strapi/design-system/Flex';
-import { Grid, GridItem } from '@strapi/design-system/Grid';
-import { Loader } from '@strapi/design-system/Loader';
-import { ModalBody, ModalFooter, ModalHeader, ModalLayout } from '@strapi/design-system/ModalLayout';
-import { Portal } from '@strapi/design-system/Portal';
-import { Option, Select } from '@strapi/design-system/Select';
-import { Typography } from '@strapi/design-system/Typography';
+import { Button, Checkbox, Flex, Grid, GridItem, Loader, ModalBody, ModalFooter, ModalHeader, ModalLayout, Option, Portal, Select, Typography } from '@strapi/design-system';
 import pick from 'lodash/pick';
 import range from 'lodash/range';
 import qs from 'qs';
