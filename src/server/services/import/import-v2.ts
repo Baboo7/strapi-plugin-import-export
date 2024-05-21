@@ -28,6 +28,13 @@ type ImportFailures = {
   data: any;
 };
 
+type ImportSuccess = {
+  /** Result entity. */
+  result: Object;
+  /** Data imported. */
+  data: any;
+};
+
 class IdMapper {
   private mapping: {
     [slug in SchemaUID]?: Map<string | number, string | number>;
@@ -174,7 +181,7 @@ const importContentTypeSlug = async (
     fileIdToDbId,
     componentsDataStore,
   }: { slug: SchemaUID; user: User; idField?: string; importStage: ImportStage; fileIdToDbId: IdMapper; componentsDataStore: Partial<Record<SchemaUID, SlugEntries>> },
-): Promise<{ failures: ImportFailures[] }> => {
+): Promise<{ failures: ImportFailures[]; success: ImportSuccess[] }> => {
   let fileEntries = toPairs(slugEntries);
 
   // Sort localized data with default locale first.
@@ -196,9 +203,11 @@ const importContentTypeSlug = async (
   await sortDataByLocale();
 
   const failures: ImportFailures[] = [];
+  const success: ImportSuccess[] = [];
   for (let [fileId, fileEntry] of fileEntries) {
     try {
-      await updateOrCreate(user, slug, fileId, fileEntry, idField, { importStage, fileIdToDbId, componentsDataStore });
+      const result = await updateOrCreate(user, slug, fileId, fileEntry, idField, { importStage, fileIdToDbId, componentsDataStore });
+      success.push({ result, data: fileEntry });
     } catch (err: any) {
       strapi.log.error(err);
       failures.push({ error: err, data: fileEntry });
@@ -207,6 +216,7 @@ const importContentTypeSlug = async (
 
   return {
     failures,
+    success,
   };
 };
 
@@ -247,6 +257,8 @@ const updateOrCreate = async (
   if (dbEntry) {
     fileIdToDbId.setMapping(slug, fileId, dbEntry.id);
   }
+
+  return dbEntry;
 };
 
 function linkMediaAttributes(schema: Schema, fileEntry: FileEntry, { fileIdToDbId }: { fileIdToDbId: IdMapper }) {
@@ -397,7 +409,7 @@ const updateOrCreateCollectionTypeEntry = async (
   if (!schema.pluginOptions?.i18n?.localized) {
     let dbEntry: Entry = await strapi.db.query(slug).findOne({ where });
 
-    if (!dbEntry) {
+    if (!dbEntry || isEmpty(where)) {
       return strapi.entityService.create(slug, { data: fileEntry });
     } else {
       return strapi.entityService.update(slug, dbEntry.id, { data: omit(fileEntry, ['id']) });
