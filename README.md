@@ -1,3 +1,11 @@
+# A modified version of `strapi-plugin-import-export-entries` for use with OpenVAA `voting-advice-application`
+
+The import functionality used by the Strapi backend in [OpenVAA voting-advice-application](https://github.com/OpenVAA/voting-advice-application) is implemented using a modified version of this Strapi plugin.
+
+See the [documentation](https://github.com/OpenVAA/voting-advice-application/blob/main/docs/candidate-app/import-functionality.md) in the main repo for details.
+
+===
+
 # Strapi Plugin Import Export Entries
 
 Import/Export data from and to your database in just few clicks.
@@ -42,28 +50,44 @@ At the moment, dynamic zones and media are not unit tested. Tests will be implem
 
 ## Table Of Content
 
-- [Requirements](#requirements)
-- [Feedback](#feedback)
-- [Contribute](#contribute)
-- [Installation](#installation)
-- [Rebuild The Admin Panel](#rebuild-the-admin-panel)
+- [A modified version of `strapi-plugin-import-export-entries` for use with OpenVAA `voting-advice-application`](#a-modified-version-of-strapi-plugin-import-export-entries-for-use-with-openvaa-voting-advice-application)
+- [Strapi Plugin Import Export Entries](#strapi-plugin-import-export-entries)
+  - [Features](#features)
+    - [Import](#import)
+    - [Export](#export)
+    - [Known Limitations](#known-limitations)
+  - [Screenshots](#screenshots)
+  - [Table Of Content](#table-of-content)
+  - [Requirements](#requirements)
+  - [Feedback](#feedback)
+  - [Contribute](#contribute)
+  - [Installation](#installation)
+  - [Rebuild The Admin Panel](#rebuild-the-admin-panel)
 - [Usage](#usage)
   - [Access Control](#access-control)
   - [Preferences](#preferences)
   - [Config](#config)
     - [Available Options](#available-options)
-    - [`idField` Per Collection](#idfield-per-collection)
+    - [Specifying `idField` Per Collection](#specifying-idfield-per-collection)
     - [Importing Large Files](#importing-large-files)
-  - [Filtering & Sorting](#filtering-and-sorting)
+  - [Filtering and Sorting](#filtering-and-sorting)
   - [Services](#services)
   - [Content API](#content-api)
   - [Webhook](#webhook)
 - [Importing Data](#importing-data)
   - [JSON v2](#json-v2)
   - [JSON v1 (deprecated)](#json-v1-deprecated)
-- [Related Plugins](#related-plugins)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
+  - [Relation:](#relation)
+    - [`object`](#object)
+    - [`number`](#number)
+  - [Media:](#media)
+    - [`object`](#object-1)
+    - [Examples](#examples)
+    - [`string`](#string)
+    - [`number`](#number-1)
+  - [Related Plugins](#related-plugins)
+  - [Author](#author)
+  - [Acknowledgments](#acknowledgments)
 
 ## Requirements
 
